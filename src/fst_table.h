@@ -1,24 +1,18 @@
 /*
- fstcore - R bindings to the fstlib library
+  fstcore - R bindings to the fstlib library
 
- Copyright (C) 2017-present, Mark AJ Klik
+  Copyright (C) 2017-present, Mark AJ Klik
 
- This file is part of the fstcore R package.
+  This file is part of the fstcore R package.
 
- The fstcore R package is free software: you can redistribute it and/or modify it
- under the terms of the GNU Affero General Public License version 3 as
- published by the Free Software Foundation.
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this file,
+  You can obtain one at https://mozilla.org/MPL/2.0/.
 
- The fstcore R package is distributed in the hope that it will be useful, but
- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License
- for more details.
+  https://www.mozilla.org/en-US/MPL/2.0/FAQ/
 
- You should have received a copy of the GNU Affero General Public License along
- with the fstcore R package. If not, see <http://www.gnu.org/licenses/>.
-
- You can contact the author at:
- - fstcore R package source repository : https://github.com/fstpackage/fstcore
+  You can contact the author at:
+  - fstcore R package source repository : https://github.com/fstpackage/fstcore
 */
 
 
@@ -49,8 +43,8 @@ class FstTable : public IFstTable
   SEXP r_container;
 
   // Table metadata
-  unsigned int nrOfCols;
-  unsigned long long nrOfRows;
+  uint32_t nrOfCols;
+  uint64_t nrOfRows;
   int uniformEncoding;
 
 
@@ -69,7 +63,7 @@ class FstTable : public IFstTable
 
     SEXP ResTable() { return VECTOR_ELT(r_container, 0); }
 
-    void InitTable(unsigned int nrOfCols, unsigned long long nrOfRows);
+    void InitTable(uint32_t nrOfCols, uint64_t nrOfRows);
 
     void SetStringColumn(IStringColumn* stringColumn, int colNr);
 
@@ -91,40 +85,40 @@ class FstTable : public IFstTable
 
     void SetColNames();
 
-    void SetKeyColumns(int* keyColPos, unsigned int nrOfKeys);
+    void SetKeyColumns(int* keyColPos, uint32_t nrOfKeys);
 
-    FstColumnType ColumnType(unsigned int colNr, FstColumnAttribute &columnAttribute, short int &scale,
+    FstColumnType ColumnType(uint32_t colNr, FstColumnAttribute &columnAttribute, short int &scale,
       std::string &annotation, bool &hasAnnotation);
 
-    IStringWriter* GetStringWriter(unsigned int colNr);
+    IStringWriter* GetStringWriter(uint32_t colNr);
 
-    int* GetLogicalWriter(unsigned int colNr);
+    int* GetLogicalWriter(uint32_t colNr);
 
-    int* GetIntWriter(unsigned int colNr);
+    int* GetIntWriter(uint32_t colNr);
 
-    char* GetByteWriter(unsigned int colNr);
+    char* GetByteWriter(uint32_t colNr);
 
-    long long* GetInt64Writer(unsigned int colNr);
+    long long* GetInt64Writer(uint32_t colNr);
 
-    double* GetDoubleWriter(unsigned int colNr);
+    double* GetDoubleWriter(uint32_t colNr);
 
-    IByteBlockColumn* GetByteBlockWriter(unsigned int col_nr);
+    IByteBlockColumn* GetByteBlockWriter(uint32_t col_nr);
 
-    IStringWriter* GetLevelWriter(unsigned int colNr);
+    IStringWriter* GetLevelWriter(uint32_t colNr);
 
     IStringWriter* GetColNameWriter();
 
     void GetKeyColumns(int* keyColPos);
 
-    unsigned int NrOfKeys();
+    uint32_t NrOfKeys();
 
-    unsigned int NrOfColumns();
+    uint32_t NrOfColumns();
 
     void SetColNames(IStringArray* col_names);
 
     SEXP GetColNames();
 
-    unsigned long long NrOfRows();
+    uint64_t NrOfRows();
 };
 
 

@@ -1,24 +1,18 @@
 /*
- fstcore - R bindings to the fstlib library
+  fstcore - R bindings to the fstlib library
 
- Copyright (C) 2017-present, Mark AJ Klik
+  Copyright (C) 2017-present, Mark AJ Klik
 
- This file is part of the fstcore R package.
+  This file is part of the fstcore R package.
 
- The fstcore R package is free software: you can redistribute it and/or modify it
- under the terms of the GNU Affero General Public License version 3 as
- published by the Free Software Foundation.
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this file,
+  You can obtain one at https://mozilla.org/MPL/2.0/.
 
- The fstcore R package is distributed in the hope that it will be useful, but
- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License
- for more details.
+  https://www.mozilla.org/en-US/MPL/2.0/FAQ/
 
- You should have received a copy of the GNU Affero General Public License along
- with the fstcore R package. If not, see <http://www.gnu.org/licenses/>.
-
- You can contact the author at:
- - fstcore R package source repository : https://github.com/fstpackage/fstcore
+  You can contact the author at:
+  - fstcore R package source repository : https://github.com/fstpackage/fstcore
 */
 
 
@@ -44,7 +38,7 @@ FstTable::FstTable(SEXP &table, int uniformEncoding, SEXP r_container)
 }
 
 
-unsigned int FstTable::NrOfColumns()
+uint32_t FstTable::NrOfColumns()
 {
   if (nrOfCols == 0)
   {
@@ -55,7 +49,7 @@ unsigned int FstTable::NrOfColumns()
 }
 
 
-unsigned long long FstTable::NrOfRows()
+uint64_t FstTable::NrOfRows()
 {
   if (nrOfCols == 0)  // table has zero columns
   {
@@ -69,7 +63,7 @@ unsigned long long FstTable::NrOfRows()
 }
 
 
-FstColumnType FstTable::ColumnType(unsigned int colNr, FstColumnAttribute &columnAttribute, short int &scale,
+FstColumnType FstTable::ColumnType(uint32_t colNr, FstColumnAttribute &columnAttribute, short int &scale,
   std::string &annotation, bool &hasAnnotation)
 {
   SEXP colVec = VECTOR_ELT(*rTable, colNr);  // retrieve column vector
@@ -255,14 +249,14 @@ FstColumnType FstTable::ColumnType(unsigned int colNr, FstColumnAttribute &colum
 }
 
 
-int* FstTable::GetLogicalWriter(unsigned int colNr)
+int* FstTable::GetLogicalWriter(uint32_t colNr)
 {
   cols = VECTOR_ELT(*rTable, colNr);  // retrieve column vector
   return LOGICAL(cols);
 }
 
 
-long long* FstTable::GetInt64Writer(unsigned int colNr)
+long long* FstTable::GetInt64Writer(uint32_t colNr)
 {
   cols = VECTOR_ELT(*rTable, colNr);  // retrieve column vector (no copy?)
 
@@ -271,50 +265,50 @@ long long* FstTable::GetInt64Writer(unsigned int colNr)
 }
 
 
-int* FstTable::GetIntWriter(unsigned int colNr)
+int* FstTable::GetIntWriter(uint32_t colNr)
 {
   cols = VECTOR_ELT(*rTable, colNr);  // retrieve column vector
   return INTEGER(cols);
 }
 
 
-char* FstTable::GetByteWriter(unsigned int colNr)
+char* FstTable::GetByteWriter(uint32_t colNr)
 {
   cols = VECTOR_ELT(*rTable, colNr);  // retrieve column vector
   return (char*) RAW(cols);
 }
 
 
-double* FstTable::GetDoubleWriter(unsigned int colNr)
+double* FstTable::GetDoubleWriter(uint32_t colNr)
 {
   cols = VECTOR_ELT(*rTable, colNr);  // retrieve column vector
   return REAL(cols);
 }
 
 
-IByteBlockColumn* FstTable::GetByteBlockWriter(unsigned int col_nr){
+IByteBlockColumn* FstTable::GetByteBlockWriter(uint32_t col_nr){
   return nullptr;
 }
 
 
-IStringWriter* FstTable::GetStringWriter(unsigned int colNr)
+IStringWriter* FstTable::GetStringWriter(uint32_t colNr)
 {
   cols = VECTOR_ELT(*rTable, colNr);  // retrieve column vector
 
   // Assuming that nrOfRows is already set
-  unsigned int nrOfVectorRows = LENGTH(cols);
+  uint32_t nrOfVectorRows = LENGTH(cols);
 
   return new BlockWriterChar(cols, nrOfVectorRows, MAX_CHAR_STACK_SIZE, uniformEncoding);
 }
 
 
-IStringWriter* FstTable::GetLevelWriter(unsigned int colNr)
+IStringWriter* FstTable::GetLevelWriter(uint32_t colNr)
 {
   cols = VECTOR_ELT(*rTable, colNr);  // retrieve column vector
 
   SEXP levels_str = PROTECT(Rf_mkString("levels"));
   cols = PROTECT(Rf_getAttrib(cols, levels_str));
-  unsigned int nrOfFactorLevels = LENGTH(cols);
+  uint32_t nrOfFactorLevels = LENGTH(cols);
 
   IStringWriter* str_writer = new BlockWriterChar(cols, nrOfFactorLevels,
     MAX_CHAR_STACK_SIZE, uniformEncoding);
@@ -334,7 +328,7 @@ IStringWriter* FstTable::GetColNameWriter()
 }
 
 
-inline unsigned int FindKey(StringVector colNameList, String item)
+inline uint32_t FindKey(StringVector colNameList, String item)
 {
   int index = -1;
   int found = 0;
@@ -352,7 +346,7 @@ inline unsigned int FindKey(StringVector colNameList, String item)
 }
 
 
-unsigned int FstTable::NrOfKeys()
+uint32_t FstTable::NrOfKeys()
 {
   SEXP sorted_str = PROTECT(Rf_mkString("sorted"));
   SEXP keyNames = PROTECT(Rf_getAttrib(*rTable, sorted_str));
@@ -362,7 +356,7 @@ unsigned int FstTable::NrOfKeys()
     return 0;
   }
 
-  unsigned int length = LENGTH(keyNames);
+  uint32_t length = LENGTH(keyNames);
 
   UNPROTECT(2);
 
@@ -397,7 +391,7 @@ void FstTable::GetKeyColumns(int* keyColPos)
 
 //  FstTableReader implementation
 
-void FstTable::InitTable(unsigned int nrOfCols, unsigned long long nrOfRows)
+void FstTable::InitTable(uint32_t nrOfCols, uint64_t nrOfRows)
 {
   this->nrOfCols = nrOfCols;
   this->nrOfRows = nrOfRows;
@@ -527,7 +521,7 @@ SEXP FstTable::GetColNames()
 }
 
 
-void FstTable::SetKeyColumns(int* keyColPos, unsigned int nrOfKeys)
+void FstTable::SetKeyColumns(int* keyColPos, uint32_t nrOfKeys)
 {
 
 }

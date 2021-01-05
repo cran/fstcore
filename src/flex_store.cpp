@@ -1,24 +1,18 @@
 /*
- fstcore - R bindings to the fstlib library
+  fstcore - R bindings to the fstlib library
 
- Copyright (C) 2017-present, Mark AJ Klik
+  Copyright (C) 2017-present, Mark AJ Klik
 
- This file is part of the fstcore R package.
+  This file is part of the fstcore R package.
 
- The fstcore R package is free software: you can redistribute it and/or modify it
- under the terms of the GNU Affero General Public License version 3 as
- published by the Free Software Foundation.
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this file,
+  You can obtain one at https://mozilla.org/MPL/2.0/.
 
- The fstcore R package is distributed in the hope that it will be useful, but
- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License
- for more details.
+  https://www.mozilla.org/en-US/MPL/2.0/FAQ/
 
- You should have received a copy of the GNU Affero General Public License along
- with the fstcore R package. If not, see <http://www.gnu.org/licenses/>.
-
- You can contact the author at:
- - fstcore R package source repository : https://github.com/fstpackage/fstcore
+  You can contact the author at:
+  - fstcore R package source repository : https://github.com/fstpackage/fstcore
 */
 
 
@@ -229,14 +223,28 @@ SEXP fstretrieve(String fileName, SEXP columnSelection, SEXP startRow, SEXP endR
   std::unique_ptr<IColumnFactory> columnFactory(new ColumnFactory());
   FstStore fstStore(fileName.get_cstring());
 
-  int sRow = *INTEGER(startRow);
+  int64_t sRow = 0;
+
+  if (Rf_isInteger(startRow)) {
+    sRow = (int64_t)(*INTEGER(startRow));
+  } else if (Rf_isReal(startRow)) {
+    sRow = (int64_t)(0.5 + *REAL(startRow));
+  } else {
+    return fst_error("Parameter 'from' should be a positive numeric value");
+  }
 
   // Set to last row
-  int eRow = -1;
+  int64_t eRow = -1;
 
   if (!Rf_isNull(endRow))
   {
-    eRow = *INTEGER(endRow);
+    if (Rf_isInteger(endRow)) {
+    eRow = (int64_t)(*INTEGER(endRow));
+    } else if (Rf_isReal(endRow)) {
+      eRow = (int64_t)(round(*REAL(endRow)));
+    } else {
+      return fst_error("Parameter 'to' should be a positive numeric value or NULL");
+    }
   }
 
   vector<int> keyIndex;
