@@ -4,8 +4,8 @@ Title: R Bindings to the 'Fstlib' Library
 Description: The 'fstlib' library provides multithreaded serialization of compressed data frames using the
     'fst' format. The 'fst' format allows for random access of stored data and compression with the 'LZ4' and 'ZSTD'
     compressors.
-Version: 0.9.6
-Date: 2021-01-05
+Version: 0.9.8
+Date: 2022-02-04
 Authors@R: 
     c(person(given = "Mark",
              family = "Klik",
@@ -31,12 +31,11 @@ Authors@R:
       person(given = "Facebook, Inc.",
             role = "cph",
             comment = "Bundled 'ZSTD' code"))
-LazyData: true
 Depends: R (>= 3.0.0)
 Imports: Rcpp
 LinkingTo: Rcpp
 SystemRequirements: little-endian platform
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Suggests: testthat, lintr
 License: MPL-2.0 | file LICENSE
 Encoding: UTF-8
@@ -47,7 +46,7 @@ Copyright: This package includes sources from the LZ4 library owned by
 URL: https://www.fstpackage.org/fstcore/
 BugReports: https://github.com/fstpackage/fst/issues
 NeedsCompilation: yes
-Packaged: 2021-01-05 15:18:03 UTC; Mark
+Packaged: 2022-02-04 11:52:41 UTC; Mark
 Author: Mark Klik [aut, cre, cph] (Mark Klik is author of the fstcore package
     and author and copyright holder of the bundled 'fstlib' code),
   Yuta Mori [ctb, cph] (Yuta Mori is author and copyright holder of the
@@ -62,4 +61,4 @@ Author: Mark Klik [aut, cre, cph] (Mark Klik is author of the fstcore package
   Facebook, Inc. [cph] (Bundled 'ZSTD' code)
 Maintainer: Mark Klik <markklik@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-01-05 20:00:28 UTC
+Date/Publication: 2022-02-04 17:10:02 UTC
