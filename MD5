@@ -1,7 +1,7 @@
-f7433a74335fac85e131f8be84437cf3 *DESCRIPTION
+53a95b9e4176f36b2e9cc7ec9ee0aab1 *DESCRIPTION
 cfd7d66d2864c38232ec1ef20b27c13a *LICENSE
 44cf14b0bb2f26541a7bafe38ac507d0 *NAMESPACE
-b47ed88ec6f1707c14d47ad5fc33c32d *NEWS.md
+791a65e135463091f25f0f9eb35ce433 *NEWS.md
 208a260880b90b6d3a5bd5b0c6e14bd9 *R/RcppExports.R
 d488702514b5a382ed9a4b4a85779fec *R/onAttach.R
 f3a9562076ea99e2a11df10843ea8f15 *R/openmp.R
@@ -17,9 +17,9 @@ ac3578f7ff1c3ea58ac556e2cad421d9 *man/figures/fstcore.png
 cb8b44ef9367a22097396b03832733a0 *man/fstcore-package.Rd
 eaaabac532dcaaaa231da07bd35ace29 *man/lib_versions.Rd
 6ae1238b9060aaf848858cd63d287d64 *man/threads_fstlib.Rd
-660d4380a1bed8fc40cbe35da846fdad *src/Makevars.in
+37cc430f7428b2b0421540b616e7bab4 *src/Makevars.in
 2cec33791efd347cbcb051402d7cf9c4 *src/Makevars.ucrt
-cb24b87b62f2fe294daeced3025b0392 *src/Makevars.win
+d1cf0a0e62ea8c01c92c106315c41a6f *src/Makevars.win
 26d9526bd516ff9fd94137101db9732b *src/RcppExports.cpp
 60525792cdc5fa8f6caa7a05ddb26a0f *src/flex_store.cpp
 a4455b5cd5385882e2e00a2dbda6dbf3 *src/flex_store.h
@@ -94,8 +94,7 @@ b2e67889e9685de4cf3561f3cc81c1db *src/fstlib/ZSTD/compress/zstd_ldm.h
 062358df29a8ecdda179bd25047db994 *src/fstlib/ZSTD/compress/zstd_opt.h
 7b0dad1ef6f652bc49232030ab81359b *src/fstlib/ZSTD/compress/zstdmt_compress.c
 319d17da0f09d4079575de1893d3bb62 *src/fstlib/ZSTD/compress/zstdmt_compress.h
-b46db5ef4383584898ad7c7295f00204 *src/fstlib/ZSTD/decompress/huf_decompress.c
-79ca688df2df14628b334f3b5a8185bd *src/fstlib/ZSTD/decompress/huf_decompress_amd64.S
+6106b47f87776b72333c8f6b163734cb *src/fstlib/ZSTD/decompress/huf_decompress.c
 ca720e17260a20fe3ed7060ce8b01f40 *src/fstlib/ZSTD/decompress/zstd_ddict.c
 8bf91c9a9bb88d66c4ec2b1d0522b6cd *src/fstlib/ZSTD/decompress/zstd_ddict.h
 d75ba41756a4b4f8818cd7b1e5b71ebd *src/fstlib/ZSTD/decompress/zstd_decompress.c
